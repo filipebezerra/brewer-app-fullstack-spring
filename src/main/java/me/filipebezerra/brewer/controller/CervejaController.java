@@ -15,15 +15,14 @@ import me.filipebezerra.brewer.model.Cerveja;
 public class CervejaController {
 
 	@RequestMapping("/cervejas/novo")
-	public String nova() {
+	public String nova(Cerveja cerveja) {
 		return "cerveja/CadastroCerveja";
 	}
 	
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public String cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			model.addAttribute("mensagem", "Há algo errado no formulário");
-			return "cerveja/CadastroCerveja";
+			return nova(cerveja);
 		}
 		
 		redirectAttributes.addFlashAttribute("mensagem", "Tudo certo no cadastro!");
